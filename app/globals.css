@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-:root {
-}
-
 @theme {
   --font-inter: var(--font-inter);
 
@@ -32,4 +29,10 @@
   --color-gray-300: #cbd5e1;
   --color-gray-100: #f1f5f9;
   --color-white: #ffffff;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

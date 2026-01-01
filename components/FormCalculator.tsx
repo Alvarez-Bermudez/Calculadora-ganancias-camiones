@@ -1,0 +1,289 @@
+"use client";
+
+import { formatCurrencyUSD, formatNumberUS } from "@/lib/utils";
+import { Dispatch, SetStateAction, useState } from "react";
+import Button from "./Button";
+
+type DataList = { value: string; label: string }[];
+const currencyDataList: DataList = [{ value: "usd", label: "USD" }];
+const distancesDataList: DataList = [
+  { value: "mi", label: "mi" },
+  { value: "km", label: "km" },
+];
+const mpgDataList: DataList = [{ value: "mpg", label: "MPG" }];
+const precioCombustibleDataList: DataList = [
+  { value: "usdGallon", label: "USD per US gallon" },
+];
+
+type FormaPago = "cpm" | "porcentaje";
+
+const FormCalculator = () => {
+  const [precioCargaValue, setPrecioCargaValue] = useState<string>("");
+  const [precioCargaUnit, setPrecioCargaUnit] = useState<string>("");
+
+  const [formaPago, setFormaPago] = useState<FormaPago>("cpm");
+
+  const [millasCargadasValue, setMillasCargadasValue] = useState<string>("");
+  const [millasCargadasUnit, setMillasCargadasUnit] = useState<string>("");
+  const [millasVaciasValue, setMillasVaciasValue] = useState<string>("");
+  const [millasVaciasUnit, setMillasVaciasUnit] = useState<string>("");
+
+  const [mpgValue, setMpgValue] = useState<string>("");
+  const [mpgUnit, setMpgUnit] = useState<string>("");
+  const [precioCombustibleValue, setPrecioCombustibleValue] =
+    useState<string>("");
+  const [precioCombustibleUnit, setPrecioCombustibleUnit] =
+    useState<string>("");
+  const [costosFijosValue, setCostosFijosValue] = useState<string>("");
+  const [costosFijosUnit, setCostosFijosUnit] = useState<string>("");
+
+  const [porcentaje, setPorcentaje] = useState<string>("");
+  const [millasRecorridasValue, setMillasRecorridasValue] =
+    useState<string>("");
+  const [millasRecorridasUnit, setMillasRecorridasUnit] = useState<string>("");
+
+  return (
+    <div className="flex w-full mt-[120px]">
+      <form className="w-full max-w-[875px] rounded-xl bg-white px-[72px] py-[67px] mx-auto space-y-5.5 mb-[120px]">
+        <div className="flex flex-col gap-2.5">
+          <label className="text-[14px] text-gray-900 font-medium">
+            Precio de la carga (Ingreso Bruto):
+          </label>
+          <CustomTextInput
+            value={precioCargaValue}
+            setValue={setPrecioCargaValue}
+            dropdownDataList={currencyDataList}
+            dropdownValue={precioCargaUnit}
+            setDropdownValue={setPrecioCargaUnit}
+            placeholder="100,000.00"
+          />
+        </div>
+
+        <div className="w-full space-y-2.5">
+          <div className="flex items-center w-full gap-1 justify-between ">
+            <label className="font-medium text-[14px] text-gray-900 text-nowrap ">
+              Forma de pago del chofer:
+            </label>
+            <div className="h-px bg-gray-300 w-full" />
+          </div>
+
+          <div className="flex gap-5.5">
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="pagoChofer"
+                value="cpm"
+                className="accent-primary-500 size-[17px]"
+                checked={formaPago === "cpm" ? true : false}
+                onChange={() => setFormaPago("cpm")}
+              />
+              <span className="text-[15px]  text-gray-900">
+                CPM (Cobro por milla)
+              </span>
+            </label>
+
+            <label className="flex items-center space-x-2">
+              <input
+                type="radio"
+                name="pagoChofer"
+                value="porcentaje"
+                className="accent-primary-500 size-[17px]"
+                checked={formaPago === "porcentaje" ? true : false}
+                onChange={() => setFormaPago("porcentaje")}
+              />
+              <span className="text-[15px]  text-gray-900">Porcentaje</span>
+            </label>
+          </div>
+        </div>
+
+        {formaPago === "cpm" ? (
+          <div className="w-full space-y-2">
+            <div className="flex items-center w-full gap-1 justify-between ">
+              <label className="font-semibold text-[14px] text-gray-900 text-nowrap ">
+                Millas recorridas
+              </label>
+              <div className="h-px bg-gray-300 w-full" />
+            </div>
+
+            <div className="flex gap-5.5">
+              <div className="flex flex-col gap-2.5">
+                <label className="text-[14px] text-gray-900 font-medium">
+                  Millas cargadas:
+                </label>
+                <CustomTextInput
+                  value={millasCargadasValue}
+                  setValue={setMillasCargadasValue}
+                  dropdownDataList={distancesDataList}
+                  dropdownValue={millasCargadasUnit}
+                  setDropdownValue={setMillasCargadasUnit}
+                  placeholder="1,000.00"
+                />
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <label className="text-[14px] text-gray-900 font-medium">
+                  Millas vacías (deadhead):
+                </label>
+                <CustomTextInput
+                  value={millasVaciasValue}
+                  setValue={setMillasVaciasValue}
+                  dropdownDataList={distancesDataList}
+                  dropdownValue={millasVaciasUnit}
+                  setDropdownValue={setMillasVaciasUnit}
+                  placeholder="1,000.00"
+                />
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="flex gap-5.5">
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                Porcentaje:
+              </label>
+              <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
+                <input
+                  className="px-2 caret-gray-500 text-right w-[164px] text-gray-600 placeholder-gray-500 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
+                  type="number"
+                  value={porcentaje}
+                  onChange={(e) => {
+                    if (+e.target.value >= 0) setPorcentaje(e.target.value);
+                    else setPorcentaje("0");
+                  }}
+                  placeholder={"25%"}
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                Millas recorridas:
+              </label>
+              <CustomTextInput
+                value={millasRecorridasValue}
+                setValue={setMillasRecorridasValue}
+                dropdownDataList={distancesDataList}
+                dropdownValue={millasRecorridasUnit}
+                setDropdownValue={setMillasRecorridasUnit}
+                placeholder="1,000.00"
+              />
+            </div>
+          </div>
+        )}
+
+        <div className="w-full space-y-2">
+          <div className="flex items-center w-full gap-1 justify-between ">
+            <label className="font-semibold text-[14px] text-gray-900 text-nowrap ">
+              Costos operativos
+            </label>
+            <div className="h-px bg-gray-300 w-full" />
+          </div>
+
+          <div className="flex gap-5.5">
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                Rendimiento del camión (MPG):
+              </label>
+              <CustomTextInput
+                value={mpgValue}
+                setValue={setMpgValue}
+                dropdownDataList={mpgDataList}
+                dropdownValue={mpgUnit}
+                setDropdownValue={setMpgUnit}
+                placeholder="20.00"
+              />
+            </div>
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                Precio del combustible:
+              </label>
+              <CustomTextInput
+                value={precioCombustibleValue}
+                setValue={setPrecioCombustibleValue}
+                dropdownDataList={precioCombustibleDataList}
+                dropdownValue={precioCombustibleUnit}
+                setDropdownValue={setPrecioCombustibleUnit}
+                placeholder="10.00"
+              />
+            </div>
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                Costos fijos por milla:
+              </label>
+              <CustomTextInput
+                value={costosFijosValue}
+                setValue={setCostosFijosValue}
+                dropdownDataList={currencyDataList}
+                dropdownValue={costosFijosUnit}
+                setDropdownValue={setCostosFijosUnit}
+                placeholder="1,000.00"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full flex justify-end gap-5.5 mt-[50px]">
+          <button
+            type="reset"
+            className={` hover:bg-primary-100 flex flex-row justify-center items-center px-7 py-2.5 rounded-lg border border-primary-500`}
+          >
+            <label
+              className={`block font-medium text-[14px] text-primary-500 `}
+            >
+              Reiniciar
+            </label>
+          </button>
+
+          <Button variant="default" label="Calcular" onPress={() => {}} />
+        </div>
+      </form>
+    </div>
+  );
+};
+
+interface CustomTextInputProps {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+  dropdownDataList: { value: string; label: string }[];
+  dropdownValue: string;
+  setDropdownValue: Dispatch<SetStateAction<string>>;
+  placeholder: string;
+}
+
+const CustomTextInput = ({
+  value,
+  setValue,
+  dropdownDataList,
+  dropdownValue,
+  setDropdownValue,
+  placeholder,
+}: CustomTextInputProps) => {
+  return (
+    <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
+      <input
+        className="caret-gray-500 text-right w-[164px] text-gray-500 placeholder-gray-500 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
+        type="number"
+        value={value}
+        onChange={(e) => {
+          if (+e.target.value >= 0) setValue(e.target.value);
+          else setValue("0");
+        }}
+        placeholder={placeholder}
+      />
+      <span className="text-gray-500">&nbsp;|</span>
+      <select
+        className="text-gray-500 w-auto text-[15px] border-none focus:outline-none focus:border-transparent"
+        value={dropdownValue}
+        style={{ width: "70px" }}
+        onChange={(e) => setDropdownValue(e.target.value)}
+      >
+        {dropdownDataList.map((data) => (
+          <option key={data.value} value={data.value}>
+            {data.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+};
+
+export default FormCalculator;

@@ -14,7 +14,7 @@ const Button = ({ variant, label, onPress }: ButtonProps) => {
     },
     container: {
       default: "bg-primary-500",
-      outline: "border-1 border-primary-500 ",
+      outline: "border border-primary-500 ",
     },
     hover: {
       default: "hover:opacity-55",
@@ -27,7 +27,9 @@ const Button = ({ variant, label, onPress }: ButtonProps) => {
       className={` ${variants.hover[variant]} flex flex-row justify-center items-center px-7 py-2.5 rounded-lg ${variants.container[variant]}`}
       onClick={onPress}
     >
-      <label className={`font-medium text-[14px] ${variants.label[variant]} `}>
+      <label
+        className={`block font-medium text-[14px] ${variants.label[variant]} `}
+      >
         {label}
       </label>
     </button>
