@@ -8,7 +8,7 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <main className="flex flex-col  min-h-screen bg-gray-100 font-inter items-center">
+    <main className="w-screen max-w-full overflow-hidden flex flex-col  min-h-screen bg-gray-100 font-inter items-center p-4">
       <Hero />
       <HowItWorks />
       <WhatItCalculates />

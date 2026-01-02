@@ -2,9 +2,9 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <div
+    <section
       id="howItWorks"
-      className="grid grid-cols-3 gap-1 justify-between items-center mt-[156px]"
+      className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-1 justify-between items-center mt-[156px]"
     >
       <div
         className={`border border-gray-300 shadow-sm  rounded-l-[10px] overflow-hidden`}
@@ -54,7 +54,7 @@ const HowItWorks = () => {
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

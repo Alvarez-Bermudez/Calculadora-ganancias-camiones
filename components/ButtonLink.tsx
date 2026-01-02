@@ -26,7 +26,7 @@ const ButtonLink = ({ variant, label, href }: ButtonProps) => {
 
   return (
     <Link
-      className={` ${variants.hover[variant]} flex flex-row justify-center items-center px-7 py-2.5 rounded-lg ${variants.container[variant]}`}
+      className={` ${variants.hover[variant]} max-sm:w-full flex flex-row justify-center items-center px-7 py-2.5 rounded-lg ${variants.container[variant]}`}
       href={href}
     >
       <label

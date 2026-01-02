@@ -34,7 +34,7 @@ const Results = ({
         <div className="flex w-full">
           <div
             id="results"
-            className="w-full max-w-[875px] rounded-xl bg-white px-[72px] py-[67px] mx-auto space-y-5.5 mb-[120px]"
+            className="w-full max-w-[875px] rounded-xl bg-white p-5 lg:px-[72px] lg:py-[67px] mx-auto space-y-5.5 mb-[120px]"
           >
             <h3 className="font-semibold text-[18px] text-gray-700">
               Resultados
@@ -95,7 +95,7 @@ const Card = ({
   value: number;
 }) => {
   return (
-    <div className="shadow-xs flex flex-col px-5 py-4 gap-2 justify-center items-center border border-gray-300 rounded-xl">
+    <div className="max-sm:flex-1 shadow-xs flex flex-col px-5 py-4 gap-2 justify-center items-center border border-gray-300 rounded-xl">
       <div className="gap-1 flex items-center ">
         {icon}
         <label
@@ -140,7 +140,7 @@ const GananciaCard = ({
 
   return (
     <div
-      className={` ${stylesColor.container} ${stylesColor.border} shadow-xs border px-5 w-fit py-4 gap-2 flex flex-col items-center rounded-xl`}
+      className={` ${stylesColor.container} ${stylesColor.border} shadow-xs border px-5 max-sm:w-full w-fit py-4 gap-2 flex flex-col items-center rounded-xl`}
     >
       <span className={`text-[14px] font-medium ${stylesColor.label}`}>
         Ganancia neta

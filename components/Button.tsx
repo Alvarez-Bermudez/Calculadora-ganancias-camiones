@@ -24,7 +24,7 @@ const Button = ({ variant, label, onPress }: ButtonProps) => {
 
   return (
     <button
-      className={` ${variants.hover[variant]} flex flex-row justify-center items-center px-7 py-2.5 rounded-lg ${variants.container[variant]}`}
+      className={`max-sm:w-full ${variants.hover[variant]} flex flex-row justify-center items-center px-7 py-2.5 rounded-lg ${variants.container[variant]}`}
       onClick={onPress}
     >
       <label

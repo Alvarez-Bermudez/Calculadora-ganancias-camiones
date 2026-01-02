@@ -1,23 +1,23 @@
 const WhatItCalculates = () => {
   return (
-    <div
-      className="relative text-gray-100 mt-[78px]"
+    <section
+      className="max-md:p-3 relative text-gray-100 mt-[78px]"
       style={{
         backgroundImage: "url('/assets/TruckPhoto.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        width: "90%",
+        width: "100%",
         height: 768,
       }}
     >
-      <div className="absolute left-14 top-[47px]">
+      <div className="relative max-md:mb-2 md:absolute md:left-14 md:top-[47px]">
         <h3 className=" text-[22px] font-semibold">
           Obten métricas de manera rápida
         </h3>
       </div>
 
-      <div className="absolute right-28 top-[102px]">
-        <p className="text-[17px] font-medium leading-10">
+      <div className="relative md:absolute md:right-28 md:top-[102px]">
+        <p className="text-[17px] font-medium leading-10 max-sm:text-right">
           • Rate por milla <br />
           • Pago del chofer (CPM o porcentaje) <br />
           • Combustible
@@ -49,7 +49,7 @@ const WhatItCalculates = () => {
           </a>
         </p>
       </div>
-    </div>
+    </section>
   );
 };
 

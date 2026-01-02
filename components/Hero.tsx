@@ -18,7 +18,7 @@ const Hero = () => {
         necesitan decidir rápido si una carga vale la pena.
       </p>
 
-      <div className="flex flex-row justify-center items-center gap-6 mt-28 ">
+      <div className="flex flex-row justify-center items-center gap-6 mt-28 flex-wrap ">
         <ButtonLink
           variant="default"
           label="Calcular mi carga"
@@ -30,23 +30,23 @@ const Hero = () => {
           href="#howItWorks"
         />
 
-        <div className="absolute left-[68px] top-[463px] ">
+        <div className="max-sm:hidden absolute left-[68px] top-[463px] ">
           <div className="size-[35px] rounded-full bg-primary-600 items-center justify-center flex">
             <Receipt size={23} color={colors.gray[100]} />
           </div>
         </div>
 
-        <div className="absolute left-[135px] top-[520px]">
+        <div className="max-sm:hidden absolute left-[135px] top-[520px]">
           <TrendingUp size={24} color={colors.primary[500]} />
         </div>
 
-        <div className="absolute left-[90px] top-[560px]">
+        <div className="max-sm:hidden absolute left-[90px] top-[560px]">
           <div className="-rotate-21">
             <Gauge width={38} height={42} color={colors.primary[600]} />
           </div>
         </div>
 
-        <div className="absolute right-[180px] top-[435px] ">
+        <div className="max-sm:hidden absolute right-[180px] top-[435px] ">
           <div className="-rotate-8">
             <div className="size-[35px] rounded-full bg-primary-600 items-center justify-center flex">
               <Truck size={23} color={colors.gray[100]} />
@@ -54,7 +54,7 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="absolute right-[140px] top-[498px]">
+        <div className="max-sm:hidden absolute right-[140px] top-[498px]">
           <div className="rotate-19">
             <Fuel width={24} height={26} color={colors.primary[600]} />
           </div>

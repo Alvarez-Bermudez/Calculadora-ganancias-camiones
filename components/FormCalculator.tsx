@@ -9,7 +9,7 @@ type DataList = { value: string; label: string }[];
 const currencyDataList: DataList = [{ value: "usd", label: "USD" }];
 const distancesDataList: DataList = [
   { value: "mi", label: "mi" },
-  { value: "km", label: "km" },
+  // { value: "km", label: "km" },
 ];
 const cpmDataList: DataList = [{ value: "usd/mi", label: "USD/mi" }];
 
@@ -173,9 +173,9 @@ const FormCalculator = ({
     <div className="flex w-full mt-[120px]">
       <div
         id="calculator"
-        className="w-full max-w-[875px] rounded-xl bg-white px-[72px] py-[67px] mx-auto space-y-5.5 mb-[120px]"
+        className="w-full max-w-[875px] rounded-xl bg-white p-5 lg:px-[72px] lg:py-[67px] mx-auto space-y-5.5 mb-[120px]"
       >
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-2.5 max-sm:w-full">
           <label className="text-[14px] text-gray-900 font-medium">
             Precio de la carga (Ingreso Bruto):
           </label>
@@ -249,8 +249,8 @@ const FormCalculator = ({
                 <div className="h-px bg-gray-300 w-full" />
               </div>
 
-              <div className="flex gap-5.5">
-                <div className="flex flex-col gap-2.5">
+              <div className="flex gap-5.5 flex-wrap">
+                <div className="flex flex-col gap-2.5 max-md:w-full">
                   <label className="text-[14px] text-gray-900 font-medium">
                     Millas cargadas:
                   </label>
@@ -263,7 +263,7 @@ const FormCalculator = ({
                     placeholder="1,000.00"
                   />
                 </div>
-                <div className="flex flex-col gap-2.5">
+                <div className="flex flex-col gap-2.5 max-md:w-full">
                   <label className="text-[14px] text-gray-900 font-medium">
                     Millas vacías (deadhead):
                   </label>
@@ -280,12 +280,12 @@ const FormCalculator = ({
             </div>
           </>
         ) : (
-          <div className="flex gap-5.5">
-            <div className="flex flex-col gap-2.5">
+          <div className="flex gap-5.5 flex-wrap ">
+            <div className="flex flex-col gap-2.5 max-sm:w-full">
               <label className="text-[14px] text-gray-900 font-medium">
                 Porcentaje:
               </label>
-              <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
+              <div className="flex flex-1 max-sm:w-full md:max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
                 <input
                   className="px-2 caret-gray-500 text-right w-[164px] text-gray-600 placeholder-gray-300 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
                   type="number"
@@ -299,7 +299,7 @@ const FormCalculator = ({
               </div>
             </div>
 
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2.5 max-sm:w-full">
               <label className="text-[14px] text-gray-900 font-medium">
                 Millas recorridas:
               </label>
@@ -323,8 +323,8 @@ const FormCalculator = ({
             <div className="h-px bg-gray-300 w-full" />
           </div>
 
-          <div className="flex gap-5.5">
-            <div className="flex flex-col gap-2.5">
+          <div className="flex gap-5.5 flex-wrap">
+            <div className="flex flex-col gap-2.5 max-sm:w-full">
               <label className="text-[14px] text-gray-900 font-medium">
                 Rendimiento del camión (MPG):
               </label>
@@ -337,7 +337,7 @@ const FormCalculator = ({
                 placeholder="20.00"
               />
             </div>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2.5 max-sm:w-full">
               <label className="text-[14px] text-gray-900 font-medium">
                 Precio del combustible:
               </label>
@@ -350,7 +350,7 @@ const FormCalculator = ({
                 placeholder="10.00"
               />
             </div>
-            <div className="flex flex-col gap-2.5">
+            <div className="flex flex-col gap-2.5 max-sm:w-full">
               <label className="text-[14px] text-gray-900 font-medium">
                 Costos fijos por milla:
               </label>
@@ -366,9 +366,9 @@ const FormCalculator = ({
           </div>
         </div>
 
-        <div className="w-full flex justify-end gap-5.5 mt-[50px]">
+        <div className="w-full flex justify-end gap-5.5 mt-[50px] flex-wrap">
           <button
-            className={` hover:bg-primary-100 flex flex-row justify-center items-center px-7 py-2.5 rounded-lg border border-primary-500`}
+            className={`max-sm:w-full hover:bg-primary-100 flex flex-row justify-center items-center px-7 py-2.5 rounded-lg border border-primary-500`}
             onClick={reset}
           >
             <label
@@ -403,7 +403,7 @@ const CustomTextInput = ({
   placeholder,
 }: CustomTextInputProps) => {
   return (
-    <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
+    <div className="flex flex-1 max-md:w-full lg:max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
       <input
         className="caret-gray-500 text-right w-[164px] text-gray-900 placeholder-gray-300 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
         type="number"
