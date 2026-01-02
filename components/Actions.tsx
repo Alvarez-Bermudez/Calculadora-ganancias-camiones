@@ -5,12 +5,12 @@ import FormCalculator from "./FormCalculator";
 import Results from "./Results";
 
 const Actions = () => {
-  const [gananciaNeta, setGananciaNeta] = useState<number>(600);
-  const [gananciaPorMilla, setGananciaPorMilla] = useState<number>(1);
-  const [ratePorMilla, setRatePorMilla] = useState<number>(1);
-  const [pagoChofer, setPagoChofer] = useState<number>(1);
-  const [costoCombustible, setPagoCombustible] = useState<number>(1);
-  const [costosFijosTotales, setCostosFijosTotales] = useState<number>(1);
+  const [gananciaNeta, setGananciaNeta] = useState<number>(0);
+  const [gananciaPorMilla, setGananciaPorMilla] = useState<number>(0);
+  const [ratePorMilla, setRatePorMilla] = useState<number>(0);
+  const [pagoChofer, setPagoChofer] = useState<number>(0);
+  const [costoCombustible, setPagoCombustible] = useState<number>(0);
+  const [costosFijosTotales, setCostosFijosTotales] = useState<number>(0);
 
   return (
     <>

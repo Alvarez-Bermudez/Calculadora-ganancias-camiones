@@ -68,11 +68,18 @@ const FormCalculator = ({
     setPrecioCargaValue("");
     setMillasCargadasValue("");
     setMillasVaciasValue("");
+    setCpmValue("");
     setMpgValue("");
     setPrecioCombustibleValue("");
     setCostosFijosValue("");
     setPorcentaje("");
     setMillasRecorridasValue("");
+    setGananciaNeta(0);
+    setGananciaPorMilla(0);
+    setRatePorMilla(0);
+    setPagoChofer(0);
+    setPagoCombustible(0);
+    setCostosFijosTotales(0);
   }
 
   function calculate() {
@@ -145,7 +152,7 @@ const FormCalculator = ({
 
         const ratePorMilla = precioCarga / millasTotales;
 
-        const pagoChofer = precioCarga * _porcentaje;
+        const pagoChofer = (precioCarga * _porcentaje) / 100.0;
 
         const galonesUsados = millasTotales / mpg;
         const costoCombustible = galonesUsados * precioGalon;
@@ -185,7 +192,7 @@ const FormCalculator = ({
             dropdownDataList={currencyDataList}
             dropdownValue={precioCargaUnit}
             setDropdownValue={setPrecioCargaUnit}
-            placeholder="100,000.00"
+            placeholder="10,000.00"
           />
         </div>
 
@@ -238,7 +245,7 @@ const FormCalculator = ({
                 dropdownDataList={cpmDataList}
                 dropdownValue={cpmValue}
                 setDropdownValue={setCpmValue}
-                placeholder="0.65"
+                placeholder="2.50"
               />
             </div>
             <div className="w-full space-y-2">
@@ -273,7 +280,7 @@ const FormCalculator = ({
                     dropdownDataList={distancesDataList}
                     dropdownValue={millasVaciasUnit}
                     setDropdownValue={setMillasVaciasUnit}
-                    placeholder="1,000.00"
+                    placeholder="100.00"
                   />
                 </div>
               </div>
@@ -294,7 +301,7 @@ const FormCalculator = ({
                     if (+e.target.value >= 0) setPorcentaje(e.target.value);
                     else setPorcentaje("0");
                   }}
-                  placeholder={"25%"}
+                  placeholder={"30%"}
                 />
               </div>
             </div>
@@ -334,7 +341,7 @@ const FormCalculator = ({
                 dropdownDataList={mpgDataList}
                 dropdownValue={mpgUnit}
                 setDropdownValue={setMpgUnit}
-                placeholder="20.00"
+                placeholder="6.50"
               />
             </div>
             <div className="flex flex-col gap-2.5 max-sm:w-full">
@@ -347,7 +354,7 @@ const FormCalculator = ({
                 dropdownDataList={precioCombustibleDataList}
                 dropdownValue={precioCombustibleUnit}
                 setDropdownValue={setPrecioCombustibleUnit}
-                placeholder="10.00"
+                placeholder="5.00"
               />
             </div>
             <div className="flex flex-col gap-2.5 max-sm:w-full">
@@ -360,7 +367,7 @@ const FormCalculator = ({
                 dropdownDataList={currencyDataList}
                 dropdownValue={costosFijosUnit}
                 setDropdownValue={setCostosFijosUnit}
-                placeholder="1,000.00"
+                placeholder="0.75"
               />
             </div>
           </div>
