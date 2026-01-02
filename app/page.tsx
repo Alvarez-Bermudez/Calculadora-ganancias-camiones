@@ -1,5 +1,6 @@
+import Actions from "@/components/Actions";
 import CTATransiction from "@/components/CTATransiction";
-import FormCalculator from "@/components/FormCalculator";
+import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
 import WhatItCalculates from "@/components/WhatItCalculates";
@@ -12,7 +13,8 @@ export default function Home() {
       <HowItWorks />
       <WhatItCalculates />
       <CTATransiction />
-      <FormCalculator />
+      <Actions />
+      <Footer />
     </main>
   );
 }

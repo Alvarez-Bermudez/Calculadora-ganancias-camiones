@@ -3,6 +3,7 @@
 import { Fuel, Gauge, Receipt, TrendingUp, Truck } from "lucide-react";
 import Button from "./Button";
 import { colors } from "@/lib/constants";
+import ButtonLink from "./ButtonLink";
 
 const Hero = () => {
   return (
@@ -18,15 +19,15 @@ const Hero = () => {
       </p>
 
       <div className="flex flex-row justify-center items-center gap-6 mt-28 ">
-        <Button
+        <ButtonLink
           variant="default"
           label="Calcular mi carga"
-          onPress={() => {}}
+          href="#calculator"
         />
-        <Button
+        <ButtonLink
           variant="outline"
           label="Ver cómo funciona"
-          onPress={() => {}}
+          href="#howItWorks"
         />
 
         <div className="absolute left-[68px] top-[463px] ">

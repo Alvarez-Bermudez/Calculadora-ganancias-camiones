@@ -2,7 +2,10 @@ import React from "react";
 
 const HowItWorks = () => {
   return (
-    <div className="grid grid-cols-3 gap-1 justify-between items-center mt-[156px]">
+    <div
+      id="howItWorks"
+      className="grid grid-cols-3 gap-1 justify-between items-center mt-[156px]"
+    >
       <div
         className={`border border-gray-300 shadow-sm  rounded-l-[10px] overflow-hidden`}
       >

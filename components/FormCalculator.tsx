@@ -3,6 +3,7 @@
 import { formatCurrencyUSD, formatNumberUS } from "@/lib/utils";
 import { Dispatch, SetStateAction, useState } from "react";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 type DataList = { value: string; label: string }[];
 const currencyDataList: DataList = [{ value: "usd", label: "USD" }];
@@ -10,6 +11,8 @@ const distancesDataList: DataList = [
   { value: "mi", label: "mi" },
   { value: "km", label: "km" },
 ];
+const cpmDataList: DataList = [{ value: "usd/mi", label: "USD/mi" }];
+
 const mpgDataList: DataList = [{ value: "mpg", label: "MPG" }];
 const precioCombustibleDataList: DataList = [
   { value: "usdGallon", label: "USD per US gallon" },
@@ -17,7 +20,22 @@ const precioCombustibleDataList: DataList = [
 
 type FormaPago = "cpm" | "porcentaje";
 
-const FormCalculator = () => {
+interface FormCalculatorProps {
+  setGananciaNeta: Dispatch<SetStateAction<number>>;
+  setGananciaPorMilla: Dispatch<SetStateAction<number>>;
+  setRatePorMilla: Dispatch<SetStateAction<number>>;
+  setPagoChofer: Dispatch<SetStateAction<number>>;
+  setPagoCombustible: Dispatch<SetStateAction<number>>;
+  setCostosFijosTotales: Dispatch<SetStateAction<number>>;
+}
+const FormCalculator = ({
+  setGananciaNeta,
+  setGananciaPorMilla,
+  setRatePorMilla,
+  setPagoChofer,
+  setPagoCombustible,
+  setCostosFijosTotales,
+}: FormCalculatorProps) => {
   const [precioCargaValue, setPrecioCargaValue] = useState<string>("");
   const [precioCargaUnit, setPrecioCargaUnit] = useState<string>("");
 
@@ -27,6 +45,9 @@ const FormCalculator = () => {
   const [millasCargadasUnit, setMillasCargadasUnit] = useState<string>("");
   const [millasVaciasValue, setMillasVaciasValue] = useState<string>("");
   const [millasVaciasUnit, setMillasVaciasUnit] = useState<string>("");
+
+  const [cpmValue, setCpmValue] = useState<string>("");
+  const [cpmUnit, setCpmUnit] = useState<string>("");
 
   const [mpgValue, setMpgValue] = useState<string>("");
   const [mpgUnit, setMpgUnit] = useState<string>("");
@@ -41,10 +62,119 @@ const FormCalculator = () => {
   const [millasRecorridasValue, setMillasRecorridasValue] =
     useState<string>("");
   const [millasRecorridasUnit, setMillasRecorridasUnit] = useState<string>("");
+  const navigation = useRouter();
+
+  function reset() {
+    setPrecioCargaValue("");
+    setMillasCargadasValue("");
+    setMillasVaciasValue("");
+    setMpgValue("");
+    setPrecioCombustibleValue("");
+    setCostosFijosValue("");
+    setPorcentaje("");
+    setMillasRecorridasValue("");
+  }
+
+  function calculate() {
+    try {
+      if (formaPago === "cpm") {
+        const precioCarga = Number(precioCargaValue);
+        const millasCargadas = Number(millasCargadasValue);
+        const millasVacias = Number(millasVaciasValue);
+        const cpm = Number(cpmValue);
+        const mpg = Number(mpgValue);
+        const precioGalon = Number(precioCombustibleValue);
+        const costosFijosPorMilla = Number(costosFijosValue);
+        if (
+          !precioCarga ||
+          !millasCargadas ||
+          !millasVacias ||
+          !cpm ||
+          !mpg ||
+          !precioGalon ||
+          !costosFijosPorMilla
+        ) {
+          alert("Debe completar todos los campos");
+          return;
+        }
+
+        const millasTotales = millasCargadas + millasVacias;
+
+        const millasPagadas = millasCargadas + Math.max(millasVacias - 100, 0);
+
+        const ratePorMilla = precioCarga / millasTotales;
+
+        const pagoChofer = millasPagadas * cpm;
+
+        const galonesUsados = millasTotales / mpg;
+        const costoCombustible = galonesUsados * precioGalon;
+
+        const costosFijosTotales = costosFijosPorMilla * millasTotales;
+
+        const gananciaNeta =
+          precioCarga - pagoChofer - costoCombustible - costosFijosTotales;
+        const gananciaPorMilla = gananciaNeta / millasTotales;
+
+        setGananciaNeta(gananciaNeta);
+        setGananciaPorMilla(gananciaPorMilla);
+        setRatePorMilla(ratePorMilla);
+        setPagoChofer(pagoChofer);
+        setPagoCombustible(costoCombustible);
+        setCostosFijosTotales(costosFijosTotales);
+      } else {
+        // Pago por porcentaje
+
+        const precioCarga = Number(precioCargaValue);
+        const millasTotales = Number(millasRecorridasValue);
+        const _porcentaje = Number(porcentaje);
+        const mpg = Number(mpgValue);
+        const precioGalon = Number(precioCombustibleValue);
+        const costosFijosPorMilla = Number(costosFijosValue);
+
+        if (
+          !precioCarga ||
+          !millasTotales ||
+          !_porcentaje ||
+          !mpg ||
+          !precioGalon ||
+          !costosFijosPorMilla
+        ) {
+          alert("Debe completar todos los campos");
+          return;
+        }
+
+        const ratePorMilla = precioCarga / millasTotales;
+
+        const pagoChofer = precioCarga * _porcentaje;
+
+        const galonesUsados = millasTotales / mpg;
+        const costoCombustible = galonesUsados * precioGalon;
+
+        const costosFijosTotales = costosFijosPorMilla * millasTotales;
+
+        const gananciaNeta =
+          precioCarga - pagoChofer - costoCombustible - costosFijosTotales;
+        const gananciaPorMilla = gananciaNeta / millasTotales;
+
+        setGananciaNeta(gananciaNeta);
+        setGananciaPorMilla(gananciaPorMilla);
+        setRatePorMilla(ratePorMilla);
+        setPagoChofer(pagoChofer);
+        setPagoCombustible(costoCombustible);
+        setCostosFijosTotales(costosFijosTotales);
+      }
+      navigation.replace("#results");
+    } catch (e) {
+      alert("Error al calcular");
+    }
+  }
 
   return (
     <div className="flex w-full mt-[120px]">
-      <form className="w-full max-w-[875px] rounded-xl bg-white px-[72px] py-[67px] mx-auto space-y-5.5 mb-[120px]">
+      <div
+        id="calculator"
+        className="w-full max-w-[875px] rounded-xl bg-white px-[72px] py-[67px] mx-auto space-y-5.5 mb-[120px]"
+      >
         <div className="flex flex-col gap-2.5">
           <label className="text-[14px] text-gray-900 font-medium">
             Precio de la carga (Ingreso Bruto):
@@ -97,43 +227,58 @@ const FormCalculator = () => {
         </div>
 
         {formaPago === "cpm" ? (
-          <div className="w-full space-y-2">
-            <div className="flex items-center w-full gap-1 justify-between ">
-              <label className="font-semibold text-[14px] text-gray-900 text-nowrap ">
-                Millas recorridas
+          <>
+            <div className="flex flex-col gap-2.5">
+              <label className="text-[14px] text-gray-900 font-medium">
+                CPM:
               </label>
-              <div className="h-px bg-gray-300 w-full" />
+              <CustomTextInput
+                value={cpmValue}
+                setValue={setCpmValue}
+                dropdownDataList={cpmDataList}
+                dropdownValue={cpmValue}
+                setDropdownValue={setCpmValue}
+                placeholder="0.65"
+              />
             </div>
+            <div className="w-full space-y-2">
+              <div className="flex items-center w-full gap-1 justify-between ">
+                <label className="font-semibold text-[14px] text-gray-900 text-nowrap ">
+                  Millas recorridas
+                </label>
+                <div className="h-px bg-gray-300 w-full" />
+              </div>
 
-            <div className="flex gap-5.5">
-              <div className="flex flex-col gap-2.5">
-                <label className="text-[14px] text-gray-900 font-medium">
-                  Millas cargadas:
-                </label>
-                <CustomTextInput
-                  value={millasCargadasValue}
-                  setValue={setMillasCargadasValue}
-                  dropdownDataList={distancesDataList}
-                  dropdownValue={millasCargadasUnit}
-                  setDropdownValue={setMillasCargadasUnit}
-                  placeholder="1,000.00"
-                />
-              </div>
-              <div className="flex flex-col gap-2.5">
-                <label className="text-[14px] text-gray-900 font-medium">
-                  Millas vacías (deadhead):
-                </label>
-                <CustomTextInput
-                  value={millasVaciasValue}
-                  setValue={setMillasVaciasValue}
-                  dropdownDataList={distancesDataList}
-                  dropdownValue={millasVaciasUnit}
-                  setDropdownValue={setMillasVaciasUnit}
-                  placeholder="1,000.00"
-                />
+              <div className="flex gap-5.5">
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[14px] text-gray-900 font-medium">
+                    Millas cargadas:
+                  </label>
+                  <CustomTextInput
+                    value={millasCargadasValue}
+                    setValue={setMillasCargadasValue}
+                    dropdownDataList={distancesDataList}
+                    dropdownValue={millasCargadasUnit}
+                    setDropdownValue={setMillasCargadasUnit}
+                    placeholder="1,000.00"
+                  />
+                </div>
+                <div className="flex flex-col gap-2.5">
+                  <label className="text-[14px] text-gray-900 font-medium">
+                    Millas vacías (deadhead):
+                  </label>
+                  <CustomTextInput
+                    value={millasVaciasValue}
+                    setValue={setMillasVaciasValue}
+                    dropdownDataList={distancesDataList}
+                    dropdownValue={millasVaciasUnit}
+                    setDropdownValue={setMillasVaciasUnit}
+                    placeholder="1,000.00"
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <div className="flex gap-5.5">
             <div className="flex flex-col gap-2.5">
@@ -142,7 +287,7 @@ const FormCalculator = () => {
               </label>
               <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
                 <input
-                  className="px-2 caret-gray-500 text-right w-[164px] text-gray-600 placeholder-gray-500 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
+                  className="px-2 caret-gray-500 text-right w-[164px] text-gray-600 placeholder-gray-300 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
                   type="number"
                   value={porcentaje}
                   onChange={(e) => {
@@ -223,8 +368,8 @@ const FormCalculator = () => {
 
         <div className="w-full flex justify-end gap-5.5 mt-[50px]">
           <button
-            type="reset"
             className={` hover:bg-primary-100 flex flex-row justify-center items-center px-7 py-2.5 rounded-lg border border-primary-500`}
+            onClick={reset}
           >
             <label
               className={`block font-medium text-[14px] text-primary-500 `}
@@ -233,9 +378,9 @@ const FormCalculator = () => {
             </label>
           </button>
 
-          <Button variant="default" label="Calcular" onPress={() => {}} />
+          <Button variant="default" label="Calcular" onPress={calculate} />
         </div>
-      </form>
+      </div>
     </div>
   );
 };
@@ -260,7 +405,7 @@ const CustomTextInput = ({
   return (
     <div className="flex flex-1 max-w-[228px] items-center px-[5px] pt-[5px] pb-[7px] border rounded-lg border-gray-300 justify-end">
       <input
-        className="caret-gray-500 text-right w-[164px] text-gray-500 placeholder-gray-500 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
+        className="caret-gray-500 text-right w-[164px] text-gray-900 placeholder-gray-300 font-medium text-[15px] border-none focus:outline-none focus:border-transparent"
         type="number"
         value={value}
         onChange={(e) => {
