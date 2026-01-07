@@ -149,7 +149,7 @@ const GananciaCard = ({
         {formatCurrencyUSD(gananciaNeta)}
       </span>
       <span className="text-gray-700 font-medium text-[16px]">
-        {formatCurrencyUSD(gananciaPorMilla)}
+        {formatCurrencyUSD(gananciaPorMilla)} por milla
       </span>
     </div>
   );
