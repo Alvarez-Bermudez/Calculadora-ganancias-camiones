@@ -1,5 +1,7 @@
 # Calculadora-ganancias-camiones
 
+https://calculadora-ganancias-camiones.vercel.app/
+
 A web application designed to help truck owners and independent operators quickly evaluate the profitability of each load before accepting it. The tool provides a simple interface to input key details such as load price, miles traveled, driver payment method, and main operating costs. Based on this data, it calculates:
 
 - Rate per mile  
