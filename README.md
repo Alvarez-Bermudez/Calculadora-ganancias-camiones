@@ -11,7 +11,7 @@ A web application designed to help truck owners and independent operators quickl
 
 This ensures that decisions are made with clarity and precision, helping operators maximize efficiency and profitability.
 
-## ✨ Features
+## Features
 
 - Input load price and mileage  
 - Flexible driver payment options  
@@ -21,11 +21,11 @@ This ensures that decisions are made with clarity and precision, helping operato
 - Easy‑to‑use interface for quick evaluations
 - Responsive design 
   
-## 🛠️ Tech Stack
+## Tech Stack
 
 - React | TailwindCSS | Nextjs
   
-## 🚀 Getting Started
+## Getting Started
 
 ### Installation
 ```bash
@@ -44,14 +44,14 @@ pnpm install
 pnpm dev
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please fork the repository and submit a pull request with your improvements.
 
 ## Design
 Open the folder "design-Lunacy". It contains the design file. Open it with Lunacy app
 
-## 📸 Screenshots
+## Screenshots
 ![Screenshot 1](screenshots/01.png)
 ![Screenshot 2](screenshots/02.png)
 ![Screenshot 3](screenshots/03.png)
